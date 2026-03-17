@@ -24,8 +24,8 @@ class Dataset(Dataset):
         img_noise_path = self.img_noise_path[idx]
         img_clean_path = self.img_clean_path[idx]
         
-        image_clean = np.fromfile(img_clean_path, np.float32).reshape(self.img_hw, self.img_hw, self.frame_num).transpose(2, 0, 1)
-        image_noise = np.fromfile(img_noise_path, np.float32).reshape(self.img_hw, self.img_hw, self.frame_num).transpose(2, 0, 1)
+        image_clean = np.fromfile(img_clean_path, np.float32).reshape(self.img_hw, self.img_hw, 3, self.frame_num).transpose(3, 0, 1, 2)
+        image_noise = np.fromfile(img_noise_path, np.float32).reshape(self.img_hw, self.img_hw, 3, self.frame_num).transpose(3, 0, 1, 2)
 
         image_clean = torch.from_numpy(image_clean)
         image_noise = torch.from_numpy(image_noise)
