@@ -406,6 +406,11 @@ class CZSS(nn.Module):
         self.drop_path = DropPath(drop_path)
 
     def forward(self, input: torch.Tensor):
-        # pdb.set_trace()
+        b, c, h, w, d = input.shape
+        input = input.permute(0, 2, 3, 1, 4)
+        input = rearrange(input, 'b h w c d -> b h w (c d)')
+        
         x = input + self.self_attention(self.ln_1(input))
+        x = rearrange(x, 'b h w (c d) -> b h w c d', c = 24)
+        x = x.permute(0, 3, 1, 2, 4)
         return x
