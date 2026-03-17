@@ -7,8 +7,8 @@ import pdb
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--model_path", type=str, default='checkpoints/zubal/ckpt_285')
-parser.add_argument("--data_path", type=str, default='test-imgs/zubal')
+parser.add_argument("--model_path", type=str, default='checkpoints/xxx')
+parser.add_argument("--data_path", type=str, default='xxx')
 args = parser.parse_args()
 
 
@@ -24,7 +24,7 @@ print('Nb tensors: ',len(list(model.named_parameters())), "; Trainable Params: "
 for root, _, files in os.walk(args.data_path):
     for file in files:
         img_noise_path = os.path.join(root, file)
-        img_noise = np.fromfile(img_noise_path, dtype=np.float32).reshape(128, 128, 24).transpose(2, 0, 1)
+        img_noise = np.fromfile(img_noise_path, dtype=np.float32).reshape(128, 128, 3, 24).transpose(3, 0, 1, 2)
 
         img = torch.from_numpy(img_noise)
         img = img.unsqueeze(0).cuda().float()
